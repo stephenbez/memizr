@@ -51,6 +51,7 @@ $(document).ready(function() {
 {% block content %}
 <div class="inner">
 {% if card %}
+    <p><a href="/edit/{{ card.id }}">Edit this card</a></p>
     <p id="question">{{ card.question }}</p>
     <p id="answer" style="display:none">{{ card.answer }}</p>
 
@@ -73,7 +74,7 @@ $(document).ready(function() {
     <input name="grade" id="grade3" type="submit" value="3"/> 
     <input name="grade" id="grade4" type="submit" value="4"/> 
     <input name="grade" id="grade5" type="submit" value="5"/> 
-    <p><a href="/gradeDescrpitions">Grade Descriptions</a></p>
+    <p><a href="/gradeDescriptions">Grade Descriptions</a></p>
     </form>
     </div>
     
