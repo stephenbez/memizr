@@ -5,38 +5,45 @@
 <script type="text/javascript" src="/site_media/web-app-theme/javascripts/shortcut.js"></script>
 <script type="text/javascript">
 function onShowAnswer() {
+    setUpGradeShortcuts();
     $('#answer').show()
     $('#showAnswerButton').hide()
     $('#gradeBox').show()
-    $('#debugInfo').show()
-}
-function clickButton(grade) {
-    if ($('#answer').is(":visible")) {
-        $("#grade" + grade).click()
-    }
+//    $('#debugInfo').show()
 }
 
-shortcut.add("0", function() {
-    clickButton("0")
-});
-shortcut.add("1", function() {
-    clickButton("1")
-});
-shortcut.add("2", function() {
-    clickButton("2")
-});
-shortcut.add("3", function() {
-    clickButton("3")
-});
-shortcut.add("4", function() {
-    clickButton("4")
-});
-shortcut.add("5", function() {
-    clickButton("5")
-});
+function clickButton(grade) {
+    $("#grade" + grade).click()
+}
+
+function setUpGradeShortcuts() {
+        shortcut.add("0", function() {
+            clickButton("0")
+        });
+        shortcut.add("1", function() {
+            clickButton("1")
+        });
+        shortcut.add("2", function() {
+            clickButton("2")
+        });
+        shortcut.add("3", function() {
+            clickButton("3")
+        });
+        shortcut.add("4", function() {
+            clickButton("4")
+        });
+        shortcut.add("5", function() {
+            clickButton("5")
+        });
+}
+
 shortcut.add("Ctrl+Space", function() {
     onShowAnswer()
 });
+
+$(document).ready(function() {
+    $("#scratch").focus()
+})
 
 </script>
 {% endblock %}
@@ -51,9 +58,10 @@ shortcut.add("Ctrl+Space", function() {
    
     <br/><br/>
     <label for="answer">Scratch Room:</label><br/>
-    <textarea rows="3" cols="60" name="answer"></textarea>
+    <textarea id="scratch" rows="3" cols="60" name="answer"></textarea>
 
     <div id="gradeBox" style="display:none">
+    <br/>
     <div id="gradeYourAnswer">Grade your answer:</div>    
 
     <form action="/grade/" method="post">
@@ -65,6 +73,7 @@ shortcut.add("Ctrl+Space", function() {
     <input name="grade" id="grade3" type="submit" value="3"/> 
     <input name="grade" id="grade4" type="submit" value="4"/> 
     <input name="grade" id="grade5" type="submit" value="5"/> 
+    <p><a href="/gradeDescrpitions">Grade Descriptions</a></p>
     </form>
     </div>
     

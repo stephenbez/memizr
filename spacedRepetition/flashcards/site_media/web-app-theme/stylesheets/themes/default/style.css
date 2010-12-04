@@ -113,6 +113,10 @@ hr {
   line-height: 1.45em;
 }
 
+#question, #answer {
+  font-size: 18px !important;
+}
+
 #sidebar .block h4 {
   font-weight: bold;
 }

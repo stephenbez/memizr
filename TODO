@@ -6,15 +6,15 @@ Most important {
 - add descriptive text of the grading scale
 - Add multiple users
 - delete confirmation
-- add keyboard shortcuts for grading
+- add a button to the review page to edit the current card
 }
 
-- Add installation instructions
+- be able to define when the day ends
 
 - Add tags
 - Do input checking so people can't add blank cards
 - Maybe, do input checking so people can't add cards that have already been there
-
+- ability to add pictures/sounds, maybe LaTeX formulas
 
 Optional:
 Add ability to import/export cards

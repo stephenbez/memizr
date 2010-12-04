@@ -9,6 +9,9 @@ import random
 def home(request):
     return render_to_response('home.html', { 'active_tab' : 'home' })
 
+def gradeDescriptions(request):
+    return render_to_response('gradeDescriptions.html')
+
 def review(request):
     current_day = get_days_so_far() 
     results = Card.objects.filter(next_rep_day__lte = current_day)
