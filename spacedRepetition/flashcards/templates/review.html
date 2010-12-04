@@ -2,13 +2,42 @@
 {% block title %}Review your cards{% endblock %}
 
 {% block extra_javascript %}
+<script type="text/javascript" src="/site_media/web-app-theme/javascripts/shortcut.js"></script>
 <script type="text/javascript">
 function onShowAnswer() {
-	$('#answer').show()
-	$('#showAnswerButton').hide()
-	$('#gradeBox').show()
+    $('#answer').show()
+    $('#showAnswerButton').hide()
+    $('#gradeBox').show()
     $('#debugInfo').show()
 }
+function clickButton(grade) {
+    if ($('#answer').is(":visible")) {
+        $("#grade" + grade).click()
+    }
+}
+
+shortcut.add("0", function() {
+    clickButton("0")
+});
+shortcut.add("1", function() {
+    clickButton("1")
+});
+shortcut.add("2", function() {
+    clickButton("2")
+});
+shortcut.add("3", function() {
+    clickButton("3")
+});
+shortcut.add("4", function() {
+    clickButton("4")
+});
+shortcut.add("5", function() {
+    clickButton("5")
+});
+shortcut.add("Ctrl+Space", function() {
+    onShowAnswer()
+});
+
 </script>
 {% endblock %}
 			
@@ -29,13 +58,13 @@ function onShowAnswer() {
 
     <form action="/grade/" method="post">
     <input type="hidden" name="cardId" value="{{ card.id }}"/>
-    <input name="grade" type="submit" value="0"/> 
-    <input name="grade" type="submit" value="1"/> 
+    <input name="grade" id="grade0" type="submit" value="0"/> 
+    <input name="grade" id="grade1" type="submit" value="1"/> 
     | 
-    <input name="grade" type="submit" value="2"/> 
-    <input name="grade" type="submit" value="3"/> 
-    <input name="grade" type="submit" value="4"/> 
-    <input name="grade" type="submit" value="5"/> 
+    <input name="grade" id="grade2" type="submit" value="2"/> 
+    <input name="grade" id="grade3" type="submit" value="3"/> 
+    <input name="grade" id="grade4" type="submit" value="4"/> 
+    <input name="grade" id="grade5" type="submit" value="5"/> 
     </form>
     </div>
     

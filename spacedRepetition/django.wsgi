@@ -1,7 +1,7 @@
 import sys
 
-sys.path.insert(0, '/home/steve/spacedRepetition')
-sys.path.insert(0, '/home/steve/spacedRepetition/spacedRepetition')
+sys.path.insert(0, '/home/steve/memizr')
+sys.path.insert(0, '/home/steve/memizr/spacedRepetition')
 
 import spacedRepetition.settings
 
