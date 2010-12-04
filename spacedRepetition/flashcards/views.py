@@ -26,7 +26,22 @@ def review(request):
 
 def edit(request):
     cards = Card.objects.all()
-    return render_to_response('edit.html', { 'cards' : cards, 'active_tab' : 'edit' })
+    
+    edited = False
+    deleted = False
+    
+    try:
+        edited = request.GET['edited']
+    except KeyError:
+        pass
+
+    try:
+        deleted = request.GET['deleted']
+    except KeyError:
+        pass
+
+    return render_to_response('edit.html', { 'cards' : cards, 
+        'active_tab' : 'edit', 'edited' : edited, 'deleted' : deleted })
 
 def editCard(request, card_id):
     c = Card.objects.get(pk=card_id)
@@ -44,16 +59,16 @@ def editCardSubmit(request):
         c.question = q
         c.answer = a
         c.save()
-    return edit(request)
-
+    return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.edit') + "?edited=true")
 
 def add(request):
+    added = False
     try:
-        success = request.GET['success']
+        added = request.GET['added']
     except KeyError:
-        return render_to_response('add.html', { 'active_tab' : 'add'})
-    else:    
-        return render_to_response('add.html', { 'active_tab' : 'add', 'success' : True })
+        pass
+    
+    return render_to_response('add.html', { 'active_tab' : 'add', 'added' : added })
 
 def addCard(request):
     try:
@@ -64,7 +79,7 @@ def addCard(request):
     else:
         c = Card(question=q, answer=a)
         c.save()
-    return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.add') + "?success=true")
+    return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.add') + "?added=true")
 
 def grade(request):
     try:
@@ -88,4 +103,4 @@ def delete(request):
         c = Card.objects.get(pk=card_id)
         c.delete()
 
-    return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.edit'))
+    return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.edit') + "?deleted=true")

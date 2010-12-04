@@ -4,21 +4,35 @@
 {% block extra_javascript %}        
 <script type="text/javascript">
         function delete_card(card_id) {
-            $('#cardId').val(card_id);
-            $("form:first").submit();
+            c = confirm("Are you sure you want to delete: " + $("#question" + card_id).html())
+            if (c == true) {
+                $('#cardId').val(card_id);
+                $("form:first").submit();
+            }
         }
 </script>
 {% endblock %}
 	
 {% block content %}
 <div class="inner">
+
+{% if edited %}
+<br/>
+<div class="flash"><div class="message notice"><p>Card edited</p></div></div>
+{% endif %}
+
+{% if deleted %}
+<br/>
+<div class="flash"><div class="message notice"><p>Card deleted</p></div></div>
+{% endif %}
+
 <table class="table">
 <tbody>
 {% for card in cards %}
 <tr class="{% cycle 'odd' 'even' %}">
 <td class="modify-buttons"><a href="javascript:delete_card({{ card.id }})">delete</a></td>
 <td class="modify-buttons"><a href="/edit/{{ card.id }}">edit</a></td>
-<td>{{ card.question }}</td>
+<td id="question{{ card.id }}">{{ card.question }}</td>
 <td>{{ card.answer }}</td>
 </tr>
 {% endfor %}

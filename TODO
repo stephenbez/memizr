@@ -1,10 +1,7 @@
 TODO:
 
 Most important {
-- let the user know that they were able to add a card correctly
-- let the user know that they were able to edit a card correctly
 - Add multiple users
-- delete confirmation
 - add a button to the review page to edit the current card
 }
 
@@ -15,6 +12,7 @@ Most important {
 - Do input checking so people can't add blank cards
 - Maybe, do input checking so people can't add cards that have already been there
 - ability to add pictures/sounds, maybe LaTeX formulas
+- email people when they have cards available for reviewing
 
 Optional:
 Add ability to import/export cards
