@@ -1,0 +1,25 @@
+These installation instructions have only been tested on Ubuntu 10.04.
+
+sudo apt-get update
+sudo apt-get install libapache2-mod-wsgi mysql-client mysql-server php5 phpmyadmin python-django python-mysqldb
+
+Edit django.wsgi and modify the absolute paths to match the path on your machine.
+
+Add the following two lines (with the path updated to your path) to the bottom of /etc/apache2/apache2.conf:
+WSGIScriptAlias / /home/steve/spacedRepetition/spacedRepetition/django.wsgi
+Alias /site_media/ /home/steve/spacedRepetition/spacedRepetition/flashcards/site_media/
+
+Restart apache:
+sudo /etc/init.d/apache2 restart
+
+Go to phpmyadmin and create a new user.
+Create a database called spaced_repetition.
+
+Change settings.py so the database settings match this new user.  Also change STATIC_DOC_ROOT to match your path.
+
+python manage.py syncdb
+
+At this point you should be ready to go.
+Go to localhost/home to see if it works.
+
+If you encounter any problems, a good place to check is /var/log/apache2/error.log
