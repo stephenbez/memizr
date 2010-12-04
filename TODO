@@ -1,0 +1,20 @@
+TODO:
+
+Most important {
+- let the user know that they were able to add a card correctly
+- let the user know that they were able to edit a card correctly
+- add descriptive text of the grading scale
+- Add multiple users
+- delete confirmation
+- add keyboard shortcuts for grading
+}
+
+- Add installation instructions
+
+- Add tags
+- Do input checking so people can't add blank cards
+- Maybe, do input checking so people can't add cards that have already been there
+
+
+Optional:
+Add ability to import/export cards
