@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Review your cards{% endblock %}
+
+{% block extra_javascript %}
+<script type="text/javascript">
+function onShowAnswer() {
+	$('#answer').show()
+	$('#showAnswerButton').hide()
+	$('#gradeBox').show()
+    $('#debugInfo').show()
+}
+</script>
+{% endblock %}
+			
+{% block content %}
+<div class="inner">
+{% if card %}
+    <p id="question">{{ card.question }}</p>
+    <p id="answer" style="display:none">{{ card.answer }}</p>
+
+    <button type="button" id="showAnswerButton" onClick="onShowAnswer()">Show Answer</button>
+   
+    <br/><br/>
+    <label for="answer">Scratch Room:</label><br/>
+    <textarea rows="3" cols="60" name="answer"></textarea>
+
+    <div id="gradeBox" style="display:none">
+    <div id="gradeYourAnswer">Grade your answer:</div>    
+
+    <form action="/grade/" method="post">
+    <input type="hidden" name="cardId" value="{{ card.id }}"/>
+    <input name="grade" type="submit" value="0"/> 
+    <input name="grade" type="submit" value="1"/> 
+    | 
+    <input name="grade" type="submit" value="2"/> 
+    <input name="grade" type="submit" value="3"/> 
+    <input name="grade" type="submit" value="4"/> 
+    <input name="grade" type="submit" value="5"/> 
+    </form>
+    </div>
+    
+    <p id="debugInfo" style="display: none">Debug info: {{ card }}</p>
+
+{% else %}
+    <p>No cards are currently available.</p>
+{% endif %}
+</div>
+{% endblock %}	

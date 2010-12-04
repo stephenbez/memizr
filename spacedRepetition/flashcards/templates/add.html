@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Add a card{% endblock %}
+{% block content %}
+<h2 class="title">Add a new card</h2>
+<div class="inner">
+<form action="/addCard/" method="post">
+<label for="question">Question:</label><br/>
+<textarea rows="3" cols="60" name="question"></textarea>
+
+<br/><br/>
+
+<label for="answer">Answer:</label><br/>
+<textarea rows="3" cols="60" name="answer"></textarea>
+<br/><br/>                
+
+<input type="submit" value="Add">
+</form>
+</div>
+{% endblock %}

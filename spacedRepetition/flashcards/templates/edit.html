@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Edit your cards{% endblock %}
+
+{% block extra_javascript %}        
+<script type="text/javascript">
+        function delete_card(card_id) {
+            $('#cardId').val(card_id);
+            $("form:first").submit();
+        }
+</script>
+{% endblock %}
+	
+{% block content %}
+<div class="inner">
+<table class="table">
+<tbody>
+{% for card in cards %}
+<tr class="{% cycle 'odd' 'even' %}">
+<td class="modify-buttons"><a href="javascript:delete_card({{ card.id }})">delete</a></td>
+<td class="modify-buttons"><a href="/edit/{{ card.id }}">edit</a></td>
+<td>{{ card.question }}</td>
+<td>{{ card.answer }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+<!-- / main content -->
+
+<form name="delete" action="/delete/" method="post">
+<input type="hidden" id="cardId" name="cardId"/>
+</form>
+{% endblock %}

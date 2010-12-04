@@ -1,0 +1,9 @@
+Memizr
+
+Memizr is a spaced repetition web app developed with Django.
+
+It uses a modified SM-2 algorithm based off of Mnemosyne 2.0 [https://code.launchpad.net/mnemosyne-proj].
+
+The theme is web-app-theme [https://github.com/pilu/web-app-theme].
+
+Author: Steve Bezek
