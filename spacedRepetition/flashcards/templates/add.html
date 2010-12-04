@@ -3,6 +3,10 @@
 {% block content %}
 <h2 class="title">Add a new card</h2>
 <div class="inner">
+{% if success %}
+<div class="flash"><div class="message notice"><p>Card successfully added</p></div></div>
+{% endif %}
+
 <form action="/addCard/" method="post">
 <label for="question">Question:</label><br/>
 <textarea rows="3" cols="60" name="question"></textarea>

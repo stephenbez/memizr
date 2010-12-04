@@ -59,6 +59,8 @@ hr {
   line-height: 1.2em;
   color: #fff;
   text-shadow: #000 1px 1px 2px;
+  width: 758px;
+  margin: 0 auto;
 }
 
 #header h1 a:link, #header h1 a:active, #header h1 a:hover, #header h1 a:visited {
@@ -77,8 +79,8 @@ hr {
 }
 
 #main {
-  /*width: 71%;*/
-  width: 100%;
+  width: 758px;
+  margin: 0 auto;
 }
 
 #main .block {
@@ -175,6 +177,8 @@ hr {
   background-color: #f4f4f4;
   background-image: url("images/menubar-background.png");
   background-repeat: repeat-x;
+  width: 758px;
+  margin: 0 auto;
 }
 
 #main-navigation ul li {

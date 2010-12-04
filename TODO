@@ -3,12 +3,12 @@ TODO:
 Most important {
 - let the user know that they were able to add a card correctly
 - let the user know that they were able to edit a card correctly
-- add descriptive text of the grading scale
 - Add multiple users
 - delete confirmation
 - add a button to the review page to edit the current card
 }
 
+- Instead of just saying no cards currently available, say the next card will be available in 3 days.
 - be able to define when the day ends
 
 - Add tags

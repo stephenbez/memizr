@@ -48,7 +48,12 @@ def editCardSubmit(request):
 
 
 def add(request):
-    return render_to_response('add.html', { 'active_tab' : 'add' })
+    try:
+        success = request.GET['success']
+    except KeyError:
+        return render_to_response('add.html', { 'active_tab' : 'add'})
+    else:    
+        return render_to_response('add.html', { 'active_tab' : 'add', 'success' : True })
 
 def addCard(request):
     try:
@@ -59,7 +64,7 @@ def addCard(request):
     else:
         c = Card(question=q, answer=a)
         c.save()
-    return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.add'))
+    return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.add') + "?success=true")
 
 def grade(request):
     try:
