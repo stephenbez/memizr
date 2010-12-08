@@ -6,8 +6,8 @@ def get_days_so_far():
     return (date.today() - date(2010,10,18)).days
 
 class Card(models.Model):
-    question = models.CharField(max_length=200)
-    answer = models.CharField(max_length=200)
+    question = models.TextField()
+    answer = models.TextField()
     grade = models.IntegerField(null=True, blank=True)    
     current_interval = models.IntegerField(default=0)
     easiness = models.FloatField(default=2.5)
