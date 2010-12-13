@@ -26,19 +26,20 @@
       <div id="main-navigation">
         <ul class="wat-cf">
           {% block navigation %}
+            
           <li class="first {% ifequal active_tab "home" %}active{% endifequal %}"><a href="/home">Home</a></li>
+          {% if user.is_authenticated %}
           <li class="{% ifequal active_tab "review" %}active{% endifequal %}"><a href="/review">Review</a></li>
           <li class="{% ifequal active_tab "add" %}active{% endifequal %}"><a href="/add">Add Cards</a></li>
           <li class="{% ifequal active_tab "edit" %}active{% endifequal %}"><a href="/edit">Edit Cards</a></li>
-
-      <div style="display: inline;" id="user-navigation">
-        <ul class="wat-cf">
-          <li><a class="logout" href="#">Logout</a></li>
-        </ul>
+          
+          <li style="float: right; padding-right: 25px;"><a href="/accounts/logout">Logout</a></li>
+          {% else %}
+          <li><a href="/accounts/login">Login</a></li>
+          <li><a href="/accounts/register">Register</a></li>
+          {% endif %}
       </div>
           {% endblock %}
-        </ul>
-      </div>
     </div>
     <div id="wrapper" class="wat-cf">
       <div id="main">

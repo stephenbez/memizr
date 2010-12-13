@@ -14,12 +14,12 @@ def home(request):
     return render_to_response('home.html', { 'active_tab' : 'home' }, context_instance=RequestContext(request))
 
 def gradeDescriptions(request):
-    return render_to_response('gradeDescriptions.html')
+    return render_to_response('gradeDescriptions.html', context_instance=RequestContext(request))
 
 @login_required
 def review(request):
     current_day = get_days_so_far() 
-    results = Card.objects.filter(next_rep_day__lte = current_day)
+    results = Card.objects.filter(next_rep_day__lte = current_day, username = request.user.username)
     if len(results) == 0:
         card = None
     else:
@@ -27,10 +27,12 @@ def review(request):
         random.shuffle(result_list)
         card = result_list[0]
     
-    return render_to_response('review.html', { 'card' : card, 'current_day' : get_days_so_far(), 'active_tab' : 'review' })
+    return render_to_response('review.html', { 'card' : card, 'current_day' : get_days_so_far(), 'active_tab' : 'review' },
+        context_instance=RequestContext(request))
 
+@login_required
 def edit(request):
-    cards = Card.objects.all()
+    cards = Card.objects.filter(username = request.user.username)
     
     edited = False
     deleted = False
@@ -46,12 +48,12 @@ def edit(request):
         pass
 
     return render_to_response('edit.html', { 'cards' : cards, 
-        'active_tab' : 'edit', 'edited' : edited, 'deleted' : deleted })
+        'active_tab' : 'edit', 'edited' : edited, 'deleted' : deleted }, context_instance=RequestContext(request))
 
 @login_required
 def editCard(request, card_id):
-    c = Card.objects.get(pk=card_id)
-    return render_to_response('editCard.html', { 'card' : c, 'active_tab' : 'edit' })
+    c = Card.objects.get(pk=card_id, username = request.user.username)
+    return render_to_response('editCard.html', { 'card' : c, 'active_tab' : 'edit' }, context_instance=RequestContext(request))
 
 @login_required
 def editCardSubmit(request):
@@ -62,7 +64,7 @@ def editCardSubmit(request):
     except KeyError:
         return edit(request)
     else:
-        c = Card.objects.get(pk=card_id)
+        c = Card.objects.get(pk=card_id, username = request.user.username)
         c.question = q
         c.answer = a
         c.save()
@@ -76,7 +78,7 @@ def add(request):
     except KeyError:
         pass
     
-    return render_to_response('add.html', { 'active_tab' : 'add', 'added' : added })
+    return render_to_response('add.html', { 'active_tab' : 'add', 'added' : added }, context_instance=RequestContext(request))
 
 @login_required
 def addCard(request):
@@ -86,7 +88,7 @@ def addCard(request):
     except KeyError:
         return review(request)
     else:
-        c = Card(question=q, answer=a)
+        c = Card(question=q, answer=a, username = request.user.username)
         c.save()
     return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.add') + "?added=true")
 
@@ -98,7 +100,7 @@ def grade(request):
     except KeyError:
         return review(request)
     else:
-        c = Card.objects.get(pk=card_id)
+        c = Card.objects.get(pk=card_id, username = request.user.username)
         c.process_answer(new_grade)
         c.save()
 
@@ -111,7 +113,7 @@ def delete(request):
     except KeyError:
         return edit(request)
     else:
-        c = Card.objects.get(pk=card_id)
+        c = Card.objects.get(pk=card_id, username = request.user.username)
         c.delete()
 
     return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.edit') + "?deleted=true")
@@ -124,7 +126,5 @@ def register(request):
             return HttpResponseRedirect("/home/")
     else:
         form = UserCreationForm()
-    return render_to_response("registration/register.html", {
-        'form': form,
-    })
+    return render_to_response("registration/register.html", {'form': form,}, context_instance=RequestContext(request))
 

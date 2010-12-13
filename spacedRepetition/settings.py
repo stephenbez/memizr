@@ -82,3 +82,4 @@ INSTALLED_APPS = (
 )
 
 STATIC_DOC_ROOT = '/home/steve/workspace/spacedRepetition/spacedRepetition/flashcards/site_media'
+LOGIN_REDIRECT_URL = '/home'

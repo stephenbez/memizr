@@ -1,11 +1,13 @@
 TODO:
 
-Most important {
-- Add multiple users
-}
+- Better description of what Memizr is on homepage
+- Link to Memizr source
+- Better css styling for login/register
+- When you have no cards and click edit, it should display an message
+- When you register, it should not make you also login
 
 - Instead of just saying no cards currently available, say the next card will be available in 3 days.
-- be able to define when the day ends
+- be able to define when the day ends (or switch from a day based approach to a time based approach)
 
 - Add tags
 - Do input checking so people can't add blank cards
