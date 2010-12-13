@@ -13,10 +13,11 @@ class Card(models.Model):
     easiness = models.FloatField(default=2.5)
     next_rep_day = models.IntegerField(default=0)
     retention_reps_since_lapse = models.IntegerField(default=0)
+    username = models.CharField(max_length=30)
 
     def __unicode__(self):
-        return "Q: %s, A: %s, Grade %s, current_interval %i, easiness %f, next_rep_day %i" % \
-            (self.question, self.answer, self.grade, self.current_interval, self.easiness, self.next_rep_day)
+        return "Username %s, Q: %s, A: %s, Grade %s, current_interval %i, easiness %f, next_rep_day %i" % \
+            (self.username, self.question, self.answer, self.grade, self.current_interval, self.easiness, self.next_rep_day)
 
     def process_answer(self, new_grade):
         if self.grade == None:

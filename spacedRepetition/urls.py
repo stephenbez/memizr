@@ -27,6 +27,8 @@ urlpatterns = patterns('',
     (r'^admin/(.*)', admin.site.root),
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': settings.STATIC_DOC_ROOT}),
-
+    (r'^accounts/login/$', 'django.contrib.auth.views.login'),
+    (r'^accounts/logout/$', 'django.contrib.auth.views.logout'),
+    (r'^accounts/register/$', 'spacedRepetition.flashcards.views.register'),
 )
 

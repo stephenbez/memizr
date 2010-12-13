@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% if user.is_authenticated %}
+    <h2>Welcome {{ user.username }}.</h2>
+{% endif %}
 <div class="inner">
 <p>Memizr is a program that uses spaced repetition to make learning easy.</p>
 <p>See <a href="http://en.wikipedia.org/wiki/Spaced_repetition">Wikipedia: Spaced Repetition</a> or <a href="http://www.wired.com/medtech/health/magazine/16-05/ff_wozniak?currentPage=all">Wired: Want to Remember Everything You'll Ever Learn? Surrender to This Algorithm</a></p>

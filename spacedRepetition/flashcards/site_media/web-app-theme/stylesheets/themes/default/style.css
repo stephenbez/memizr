@@ -67,13 +67,14 @@ hr {
   color: #fff;
 }
 
-#user-navigation {
-  top: auto;
-  bottom: 5px;
-  right: 25px;
+#logout li{
+  float: right;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-right: 25px;
 }
 
-#user-navigation a.logout {
+a.logout {
   background: #ccc;
   padding: 1px 4px;
 }
@@ -282,7 +283,6 @@ hr {
 }
 
 .form input.text_field, .form textarea.text_area {
-  width: 100%;
   border: 1px solid #e2e2e2;
 }
 
@@ -464,7 +464,7 @@ a.button, button.button, .pagination a, .pagination span {
   border-radius: 5px;
 }
 
-#user-navigation a.logout {
+a.logout {
   -moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
   border-radius: 4px;

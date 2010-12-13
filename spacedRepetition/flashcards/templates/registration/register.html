@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Create an account{% endblock %}
+
+{% block content %}
+<h2>Sign up</h2>
+<div class="inner">
+        <div class="content">
+          <form class="form" action="" method="post">
+            <div class="group wat-cf">
+                <label class="label">Email</label>
+                <input type="text" class="text_field">
+                <span class="description">Ex: test@example.com</span>
+            </div>
+            <div class="group wat-cf">
+                <label class="label">Password</label>
+                <input type="password" class="text_field">
+                <span class="description">Must contains the word 'yeah'</span>
+            </div>
+
+            <div class="group navform wat-cf">
+              <button type="submit" class="button">
+                <img alt="Save" src="site_media/web-app-theme/images/tick.png"> Signup
+              </button>
+            </div>
+          </form>
+        </div>
+
+  <form action="" method="post">
+      {{ form.as_p }}
+      <input type="submit" value="Create the account">
+  </form>
+</div>
+{% endblock %}

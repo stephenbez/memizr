@@ -1,17 +1,22 @@
-from django.shortcuts import render_to_response
-from spacedRepetition.flashcards.models import Card, get_days_so_far
-from django.http import HttpResponseRedirect
-from django.template import Context, loader
+from django import forms
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response
+from django.template import Context, loader, RequestContext
+from spacedRepetition.flashcards.models import Card, get_days_so_far
 from spacedRepetition.flashcards.models import get_days_so_far
+
 import random
 
 def home(request):
-    return render_to_response('home.html', { 'active_tab' : 'home' })
+    return render_to_response('home.html', { 'active_tab' : 'home' }, context_instance=RequestContext(request))
 
 def gradeDescriptions(request):
     return render_to_response('gradeDescriptions.html')
 
+@login_required
 def review(request):
     current_day = get_days_so_far() 
     results = Card.objects.filter(next_rep_day__lte = current_day)
@@ -43,10 +48,12 @@ def edit(request):
     return render_to_response('edit.html', { 'cards' : cards, 
         'active_tab' : 'edit', 'edited' : edited, 'deleted' : deleted })
 
+@login_required
 def editCard(request, card_id):
     c = Card.objects.get(pk=card_id)
     return render_to_response('editCard.html', { 'card' : c, 'active_tab' : 'edit' })
 
+@login_required
 def editCardSubmit(request):
     try:
         q = request.POST['question']
@@ -61,6 +68,7 @@ def editCardSubmit(request):
         c.save()
     return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.edit') + "?edited=true")
 
+@login_required
 def add(request):
     added = False
     try:
@@ -70,6 +78,7 @@ def add(request):
     
     return render_to_response('add.html', { 'active_tab' : 'add', 'added' : added })
 
+@login_required
 def addCard(request):
     try:
         q = request.POST['question']
@@ -81,6 +90,7 @@ def addCard(request):
         c.save()
     return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.add') + "?added=true")
 
+@login_required
 def grade(request):
     try:
         card_id = request.POST['cardId']
@@ -94,6 +104,7 @@ def grade(request):
 
         return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.review'))
 
+@login_required
 def delete(request):
     try:
         card_id = request.POST['cardId']
@@ -104,3 +115,16 @@ def delete(request):
         c.delete()
 
     return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.edit') + "?deleted=true")
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            return HttpResponseRedirect("/home/")
+    else:
+        form = UserCreationForm()
+    return render_to_response("registration/register.html", {
+        'form': form,
+    })
+
