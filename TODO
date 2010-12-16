@@ -9,6 +9,8 @@ TODO:
 - Instead of just saying no cards currently available, say the next card will be available in 3 days.
 - be able to define when the day ends (or switch from a day based approach to a time based approach)
 
+- in edit mode, say at the top "34 Total Cards"
+
 - Add tags
 - Do input checking so people can't add blank cards
 - Maybe, do input checking so people can't add cards that have already been there

@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    (r'^home/$', 'spacedRepetition.flashcards.views.home'),
+    (r'^$', 'spacedRepetition.flashcards.views.home'),
     (r'^gradeDescriptions/$', 'spacedRepetition.flashcards.views.gradeDescriptions'),
     (r'^review/$', 'spacedRepetition.flashcards.views.review'),
     (r'^add/$', 'spacedRepetition.flashcards.views.add'),
@@ -28,7 +28,7 @@ urlpatterns = patterns('',
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': settings.STATIC_DOC_ROOT}),
     (r'^accounts/login/$', 'django.contrib.auth.views.login'),
-    (r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page' : '/home'}),
+    (r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page' : '/'}),
     (r'^accounts/register/$', 'spacedRepetition.flashcards.views.register'),
 )
 

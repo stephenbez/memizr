@@ -27,7 +27,7 @@
         <ul class="wat-cf">
           {% block navigation %}
             
-          <li class="first {% ifequal active_tab "home" %}active{% endifequal %}"><a href="/home">Home</a></li>
+          <li class="first {% ifequal active_tab "home" %}active{% endifequal %}"><a href="/">Home</a></li>
           {% if user.is_authenticated %}
           <li class="{% ifequal active_tab "review" %}active{% endifequal %}"><a href="/review">Review</a></li>
           <li class="{% ifequal active_tab "add" %}active{% endifequal %}"><a href="/add">Add Cards</a></li>
