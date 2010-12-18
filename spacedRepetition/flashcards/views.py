@@ -32,7 +32,7 @@ def review(request):
 
 @login_required
 def edit(request):
-    cards = Card.objects.filter(username = request.user.username)
+    cards = Card.objects.filter(username = request.user.username).order_by('id')
     
     edited = False
     deleted = False

@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 {% block title %}Add a card{% endblock %}
+{% block extra_javascript %}
+<script type="text/javascript">
+$(document).ready(function () {
+    $(".flash").delay(1000).fadeOut("slow");
+});
+</script>
+{% endblock %}
+
+
 {% block content %}
 <h2 class="title">Add a new card</h2>
 <div class="inner">

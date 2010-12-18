@@ -28,6 +28,8 @@
 
 <table class="table">
 <tbody>
+<h2>{{ cards|length }} Total Cards</h2>
+
 {% for card in cards %}
 <tr class="{% cycle 'odd' 'even' %}">
 <td class="modify-buttons"><a href="javascript:delete_card({{ card.id }})">delete</a></td>
