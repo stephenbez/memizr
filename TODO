@@ -1,12 +1,15 @@
 TODO:
 - Better description of what Memizr is on homepage
-- Link to Memizr source
 - Better css styling for login/register
 - When you have no cards and click edit, it should display an message
 - When you register, it should not make you also login
 
+- look into problems with MySQL accepted unicode strings
+
 - Instead of just saying no cards currently available, say the next card will be available in 3 days.
 - be able to define when the day ends (or switch from a day based approach to a time based approach)
+
+- better support for formatting of the question, if you put source code in the text box, when it is displayed, everything is on one line
 
 - better server side logging to debug potential problems
 
