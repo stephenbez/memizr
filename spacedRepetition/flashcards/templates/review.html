@@ -43,6 +43,11 @@ shortcut.add("Ctrl+Space", function() {
 
 $(document).ready(function() {
     $("#scratch").focus()
+    
+    $("#descLink").click(function () {
+        $("#descriptions").toggle()
+        return false
+    })
 })
 
 </script>
@@ -58,28 +63,37 @@ $(document).ready(function() {
     <button type="button" id="showAnswerButton" onClick="onShowAnswer()">Show Answer</button>
    
     <br/><br/>
-    <label for="answer">Scratch Room:</label><br/>
+    <label for="answer">Scratch area:</label><br/>
     <textarea id="scratch" rows="3" cols="60" name="answer"></textarea>
 
     <div id="gradeBox" style="display:none">
-    <br/>
-    <div id="gradeYourAnswer">Grade your answer:</div>    
+        <br/>
+        <div id="gradeYourAnswer">Grade your answer:</div>    
 
-    <form action="/grade/" method="post">
-    <input type="hidden" name="cardId" value="{{ card.id }}"/>
-    <input name="grade" id="grade0" type="submit" value="0"/> 
-    <input name="grade" id="grade1" type="submit" value="1"/> 
-    | 
-    <input name="grade" id="grade2" type="submit" value="2"/> 
-    <input name="grade" id="grade3" type="submit" value="3"/> 
-    <input name="grade" id="grade4" type="submit" value="4"/> 
-    <input name="grade" id="grade5" type="submit" value="5"/> 
-    <p><a href="/gradeDescriptions">Grade Descriptions</a></p>
+        <form action="/grade/" method="post">
+        <input type="hidden" name="cardId" value="{{ card.id }}"/>
+        <input name="grade" id="grade0" type="submit" value="0"/> 
+        <input name="grade" id="grade1" type="submit" value="1"/> 
+        | 
+        <input name="grade" id="grade2" type="submit" value="2"/> 
+        <input name="grade" id="grade3" type="submit" value="3"/> 
+        <input name="grade" id="grade4" type="submit" value="4"/> 
+        <input name="grade" id="grade5" type="submit" value="5"/> 
+        <p><a id="descLink" href="#">Grade Descriptions</a></p>
+        <div id="descriptions" style="display: none;">
+            <p>
+            0: don't know the answer yet<br/>
+            1: still don't know the answer, but it's a little more familar<br/>
+            ----<br/>
+            2: should be able to remember for one or two days<br/>
+            3: takes significant effort to remember (interval was too long)<br/>
+            4: can remember with some effort (interval was just right)<br/>
+            5: easy (interval was too short)<br/>
+            </p>
+        </div>
     </form>
     </div>
-    
-    <p id="debugInfo" style="display: none">Debug info: {{ card }}</p>
-
+    <p>Keyboard shortcuts: Ctrl+Space to see the answer.  0, 1, 2, 3, 4, 5 to grade after seeing the answer.</p>
 {% else %}
     <p>No cards are currently available.</p>
 {% endif %}

@@ -4,6 +4,7 @@
 <script type="text/javascript">
 $(document).ready(function () {
     $(".flash").delay(1000).fadeOut("slow");
+    $("#question").focus() 
 });
 </script>
 {% endblock %}
@@ -18,12 +19,12 @@ $(document).ready(function () {
 
 <form action="/addCard/" class="form" method="post">
 <label for="question">Question:</label><br/>
-<textarea class="text_area" rows="3" cols="60" name="question"></textarea>
+<textarea id="question" class="text_area" rows="3" cols="60" name="question"></textarea>
 
 <br/><br/>
 
 <label for="answer">Answer:</label><br/>
-<textarea class="text_area" rows="3" cols="60" name="answer"></textarea>
+<textarea id="answer" class="text_area" rows="3" cols="60" name="answer"></textarea>
 <br/><br/>                
 
 <input type="submit" value="Add">

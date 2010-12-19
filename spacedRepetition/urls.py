@@ -15,7 +15,6 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^$', 'spacedRepetition.flashcards.views.home'),
-    (r'^gradeDescriptions/$', 'spacedRepetition.flashcards.views.gradeDescriptions'),
     (r'^review/$', 'spacedRepetition.flashcards.views.review'),
     (r'^add/$', 'spacedRepetition.flashcards.views.add'),
     (r'^addCard/$', 'spacedRepetition.flashcards.views.addCard'),
