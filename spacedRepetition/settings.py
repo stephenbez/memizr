@@ -1,6 +1,8 @@
+import logging
+
 # Django settings for spacedRepetition project.
 
-DEBUG = True
+DEBUG = True 
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -83,3 +85,5 @@ INSTALLED_APPS = (
 
 STATIC_DOC_ROOT = '/home/steve/workspace/spacedRepetition/spacedRepetition/flashcards/site_media'
 LOGIN_REDIRECT_URL = '/'
+
+logging.basicConfig(level=logging.DEBUG, filename="/var/log/django/django.log")

@@ -9,6 +9,9 @@ from spacedRepetition.flashcards.models import Card, get_days_so_far
 from spacedRepetition.flashcards.models import get_days_so_far
 
 import random
+import logging
+
+logger = logging.getLogger(__name__)
 
 def home(request):
     return render_to_response('home.html', { 'active_tab' : 'home' }, context_instance=RequestContext(request))
@@ -101,8 +104,10 @@ def grade(request):
         return review(request)
     else:
         c = Card.objects.get(pk=card_id, username = request.user.username)
+        logger.debug("Before grading: " + c.__unicode__())    
         c.process_answer(new_grade)
         c.save()
+        logger.debug("After grading: " + c.__unicode__())
 
         return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.review'))
 

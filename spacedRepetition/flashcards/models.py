@@ -16,8 +16,8 @@ class Card(models.Model):
     username = models.CharField(max_length=30)
 
     def __unicode__(self):
-        return "Username %s, Q: %s, A: %s, Grade %s, current_interval %i, easiness %f, next_rep_day %i" % \
-            (self.username, self.question, self.answer, self.grade, self.current_interval, self.easiness, self.next_rep_day)
+        return "Id: %i, Username: %s, Q: %s, A: %s, Grade %s, current_interval %i, easiness %f, next_rep_day %i" % \
+            (self.id, self.username, self.question, self.answer, self.grade, self.current_interval, self.easiness, self.next_rep_day)
 
     def process_answer(self, new_grade):
         if self.grade == None:
