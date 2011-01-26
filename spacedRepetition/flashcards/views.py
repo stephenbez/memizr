@@ -1,12 +1,14 @@
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, authenticate
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import Context, loader, RequestContext
 from spacedRepetition.flashcards.models import Card, get_days_so_far
 from spacedRepetition.flashcards.models import get_days_so_far
+from spacedRepetition.flashcards.forms import UserCreationFormWithEmail
 
 import random
 import logging
@@ -125,11 +127,13 @@ def delete(request):
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserCreationFormWithEmail(request.POST)
         if form.is_valid():
             new_user = form.save()
-            return HttpResponseRedirect("/home/")
+            user = authenticate(username=new_user.username, password=form.cleaned_data["password1"])
+            login(request, user)
+            return HttpResponseRedirect("/")
     else:
-        form = UserCreationForm()
+        form = UserCreationFormWithEmail()
     return render_to_response("registration/register.html", {'form': form,}, context_instance=RequestContext(request))
 

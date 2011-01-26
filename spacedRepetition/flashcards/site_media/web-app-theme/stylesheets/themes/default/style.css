@@ -469,3 +469,21 @@ a.logout {
 	-webkit-border-radius: 4px;
   border-radius: 4px;
 }
+
+.medium.button1 {
+    font-size: 16px;
+    padding: 10px 14px 12px 16px;
+}
+
+.orange.button1 {
+    background: -moz-linear-gradient(center bottom , #FF9009 22%, #FFAA44 81%) repeat scroll 0 0 transparent;
+}
+
+a.button1 {
+    -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    color: white;
+    display: inline-block;
+    font-family: Helvetica,Arial,Sans-serif;
+    text-decoration: none;
+    white-space: nowrap;
+}

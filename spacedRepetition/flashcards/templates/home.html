@@ -5,11 +5,20 @@
     <h2>Welcome {{ user.username }}.</h2>
 {% endif %}
 <div class="inner">
-<p>Memizr is a program that uses spaced repetition to make learning easy.</p>
+<h2>Use scientific principles to retain everything you learn by spending just minutes a day</h2>
+
+<p>Flashcards are a great way to study.  Unfortunately with traditional flashcards, you are stuck reviewing easy cards far too frequently and don't get to spend enough time on the hard cards to really remember them.  Using a method tailored to each individual, Memizr schedules cards for review at just the right time.</p>
+
+{% if not user.is_authenticated %}
+<a href="accounts/register" class="medium orange button1">
+<span class="get_started">Free!&nbsp;&nbsp;Sign Up Now ></span>
+</a><br/>
+{% endif %}
+
 <p>See <a href="http://en.wikipedia.org/wiki/Spaced_repetition">Wikipedia: Spaced Repetition</a> or <a href="http://www.wired.com/medtech/health/magazine/16-05/ff_wozniak?currentPage=all">Wired: Want to Remember Everything You'll Ever Learn? Surrender to This Algorithm</a></p>
 </p>
 <p>
-Memizr is open source software licensed under the AGPL.  The source is available <a href="https://github.com/stephenbez/memizr">here.</a>
+Memizr is <a href="https://github.com/stephenbez/memizr">open source software</a> licensed under the AGPL.
 </p>
 </div>
 {% endblock %}
