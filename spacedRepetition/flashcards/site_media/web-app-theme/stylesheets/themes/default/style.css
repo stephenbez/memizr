@@ -116,7 +116,7 @@ a.logout {
   line-height: 1.45em;
 }
 
-#question, #answer {
+#question p, #answer p {
   font-size: 18px !important;
 }
 

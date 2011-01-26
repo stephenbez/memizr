@@ -57,8 +57,8 @@ $(document).ready(function() {
 <div class="inner">
 {% if card %}
     <p><a href="/edit/{{ card.id }}">Edit this card</a></p>
-    <p id="question">{{ card.question }}</p>
-    <p id="answer" style="display:none">{{ card.answer }}</p>
+    <div id="question">{{ card.question|linebreaks }}</div>
+    <div id="answer" style="display:none">{{ card.answer|linebreaks }}</div>
 
     <button type="button" id="showAnswerButton" onClick="onShowAnswer()">Show Answer</button>
    
