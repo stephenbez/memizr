@@ -12,10 +12,19 @@ Alias /site_media/ /home/steve/spacedRepetition/spacedRepetition/flashcards/site
 Restart apache:
 sudo /etc/init.d/apache2 restart
 
-Go to phpmyadmin and create a new user.
+Follow these directions: http://parand.com/say/index.php/2008/06/11/djangomysql-how-to-fix-unicode-aka-mysterious-question-marks/
+
+Go to phpmyadmin and create a new user and give data and structures privileges.
 Create a database called spaced_repetition.
 
 Change settings.py so the database settings match this new user.  Also change STATIC_DOC_ROOT to match your path.
+
+sudo mkdir /var/log/django
+sudo touch /var/log/django/django.log
+sudo chown steve /var/log/django/django.log
+sudo chmod a+w /var/log/django/djanog.log
+
+Create the directory /var/log/django, and chown so django can write to it.
 
 python manage.py syncdb
 
