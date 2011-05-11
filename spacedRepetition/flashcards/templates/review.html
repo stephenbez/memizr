@@ -56,6 +56,7 @@ $(document).ready(function() {
 {% block content %}
 <div class="inner">
 {% if card %}
+    <p>{{ num_cards }} card{{ num_cards|pluralize }} left for today</p>
     <p><a href="/edit/{{ card.id }}">Edit this card</a></p>
     <div id="question">{{ card.question|linebreaks }}</div>
     <div id="answer" style="display:none">{{ card.answer|linebreaks }}</div>

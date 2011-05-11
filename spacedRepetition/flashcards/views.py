@@ -25,14 +25,15 @@ def gradeDescriptions(request):
 def review(request):
     current_day = get_days_so_far() 
     results = Card.objects.filter(next_rep_day__lte = current_day, username = request.user.username)
-    if len(results) == 0:
+    num_cards = len(results)
+    if num_cards == 0:
         card = None
     else:
         result_list = list(results)
         random.shuffle(result_list)
         card = result_list[0]
     
-    return render_to_response('review.html', { 'card' : card, 'current_day' : get_days_so_far(), 'active_tab' : 'review' },
+    return render_to_response('review.html', { 'card' : card, 'current_day' : get_days_so_far(), 'active_tab' : 'review', 'num_cards' : num_cards },
         context_instance=RequestContext(request))
 
 @login_required
