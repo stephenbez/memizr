@@ -96,7 +96,8 @@ $(document).ready(function() {
     </div>
     <p>Keyboard shortcuts: Ctrl+Space to see the answer.  0, 1, 2, 3, 4, 5 to grade after seeing the answer.</p>
 {% else %}
-    <p>No cards are currently available.</p>
+    <p>There are no more cards to study today.</p>
+    <p>You will be scheduled to review your next card in {{ days_until_next_rep }} day{{ days_until_next_rep|pluralize }}.</p>
 {% endif %}
 </div>
 {% endblock %}	

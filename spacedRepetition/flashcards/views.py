@@ -28,12 +28,15 @@ def review(request):
     num_cards = len(results)
     if num_cards == 0:
         card = None
+        next_rep_day = Card.objects.filter(username = request.user.username). \
+                            order_by('next_rep_day')[0].next_rep_day
+        days_until_next_rep = next_rep_day - current_day
     else:
         result_list = list(results)
         random.shuffle(result_list)
         card = result_list[0]
     
-    return render_to_response('review.html', { 'card' : card, 'current_day' : get_days_so_far(), 'active_tab' : 'review', 'num_cards' : num_cards },
+    return render_to_response('review.html', { 'card' : card, 'current_day' : get_days_so_far(), 'active_tab' : 'review', 'num_cards' : num_cards, 'days_until_next_rep' : days_until_next_rep },
         context_instance=RequestContext(request))
 
 @login_required
