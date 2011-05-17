@@ -35,6 +35,7 @@ def review(request):
         result_list = list(results)
         random.shuffle(result_list)
         card = result_list[0]
+        days_until_next_rep = 0
     
     return render_to_response('review.html', { 'card' : card, 'current_day' : get_days_so_far(), 'active_tab' : 'review', 'num_cards' : num_cards, 'days_until_next_rep' : days_until_next_rep },
         context_instance=RequestContext(request))
