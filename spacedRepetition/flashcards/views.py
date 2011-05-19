@@ -124,11 +124,20 @@ def delete(request):
         card_id = request.POST['cardId']
     except KeyError:
         return edit(request)
-    else:
-        c = Card.objects.get(pk=card_id, username = request.user.username)
-        c.delete()
+   
+    from_review = False
+    try:
+        from_review = request.POST['fromReview']
+    except KeyError:
+        pass
+ 
+    c = Card.objects.get(pk=card_id, username = request.user.username)
+    c.delete()
 
-    return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.edit') + "?deleted=true")
+    if from_review:
+        return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.review'))
+    else:
+        return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.edit') + "?deleted=true")
 
 def register(request):
     if request.method == 'POST':

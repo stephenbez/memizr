@@ -48,7 +48,16 @@ $(document).ready(function() {
         $("#descriptions").toggle()
         return false
     })
-})
+});
+
+
+function delete_card(card_id) {
+    c = confirm("Are you sure you want to delete this card?");
+    if (c == true) {
+        $('#cardId').val(card_id);
+        $("#deleteForm").submit();
+    }
+}
 
 </script>
 {% endblock %}
@@ -57,7 +66,7 @@ $(document).ready(function() {
 <div class="inner">
 {% if card %}
     <p>{{ num_cards }} card{{ num_cards|pluralize }} left for today</p>
-    <p><a href="/edit/{{ card.id }}">Edit this card</a></p>
+    <p><a href="/edit/{{ card.id }}">Edit this card</a> | <a href="javascript:delete_card({{ card.id }})">Delete this card</a></p>
     <div id="question">{{ card.question|linebreaks }}</div>
     <div id="answer" style="display:none">{{ card.answer|linebreaks }}</div>
 
@@ -71,7 +80,7 @@ $(document).ready(function() {
         <br/>
         <div id="gradeYourAnswer">Grade your answer:</div>    
 
-        <form action="/grade/" method="post">
+        <form id="gradeForm" action="/grade/" method="post">
         <input type="hidden" name="cardId" value="{{ card.id }}"/>
         <input name="grade" id="grade0" type="submit" value="0"/> 
         <input name="grade" id="grade1" type="submit" value="1"/> 
@@ -92,6 +101,10 @@ $(document).ready(function() {
             5: easy (interval was too short)<br/>
             </p>
         </div>
+    </form>
+    <form id="deleteForm" action="/delete/" method="post">
+        <input type="hidden" name="cardId" value="{{ card.id }}"/>
+        <input type="hidden" name="fromReview" value="1"/>
     </form>
     </div>
     <p>Keyboard shortcuts: Ctrl+Space to see the answer.  0, 1, 2, 3, 4, 5 to grade after seeing the answer.</p>
