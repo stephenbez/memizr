@@ -64,8 +64,11 @@ function delete_card(card_id) {
 			
 {% block content %}
 <div class="inner">
+{% if user_has_no_cards %}
+    <p>You have not created any cards.  Click on the 'Add Cards' tab to create some cards.</p>
+{% else %}
 {% if card %}
-    <p>{{ num_cards }} card{{ num_cards|pluralize }} left for today</p>
+    <p>{{ num_cards_for_today }} card{{ num_cards_for_today|pluralize }} left for today</p>
     <p><a href="/edit/{{ card.id }}">Edit this card</a> | <a href="javascript:delete_card({{ card.id }})">Delete this card</a></p>
     <div id="question">{{ card.question|linebreaks }}</div>
     <div id="answer" style="display:none">{{ card.answer|linebreaks }}</div>
@@ -111,6 +114,7 @@ function delete_card(card_id) {
 {% else %}
     <p>There are no more cards to study today.</p>
     <p>You will be scheduled to review your next card in {{ days_until_next_rep }} day{{ days_until_next_rep|pluralize }}.</p>
+{% endif %}
 {% endif %}
 </div>
 {% endblock %}	

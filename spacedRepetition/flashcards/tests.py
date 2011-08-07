@@ -1,15 +1,16 @@
-"""
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
+import unittest
+from django.test.client import Client
 
-Replace these with more appropriate tests for your application.
-"""
+class SimpleTest(unittest.TestCase):
+    def setUp(self):
+        # Every test needs a client.
+        self.client = Client()
 
-from django.test import TestCase
+    def test_review_should_not_return_error(self):
+        register_response = self.client.post('/accounts/register/', {'username': 'john', 'email': 'john@example.com', 'password1': 'abcd', 'password2': 'abcd'})
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.failUnlessEqual(1 + 1, 3)
+        self.assertEqual(302, register_response.status_code)
+
+        review_response = self.client.get('/review/')
+
+        self.assertEqual(200, review_response.status_code)

@@ -25,19 +25,23 @@ def gradeDescriptions(request):
 def review(request):
     current_day = get_days_so_far() 
     results = Card.objects.filter(next_rep_day__lte = current_day, username = request.user.username)
-    num_cards = len(results)
-    if num_cards == 0:
-        card = None
+    num_cards_for_today = len(results)
+    if num_cards_for_today == 0:
+        all_cards = Card.objects.filter(username = request.user.username).order_by('next_rep_day')
+
+        if len(all_cards) == 0:
+            return render_to_response('review.html', { 'active_tab' : 'review', 'user_has_no_cards' : True }, context_instance=RequestContext(request))
+
         next_rep_day = Card.objects.filter(username = request.user.username). \
                             order_by('next_rep_day')[0].next_rep_day
         days_until_next_rep = next_rep_day - current_day
+        return render_to_response('review.html', { 'active_tab' : 'review', 'days_until_next_rep' : days_until_next_rep }, context_instance=RequestContext(request))
     else:
         result_list = list(results)
         random.shuffle(result_list)
         card = result_list[0]
-        days_until_next_rep = 0
     
-    return render_to_response('review.html', { 'card' : card, 'current_day' : get_days_so_far(), 'active_tab' : 'review', 'num_cards' : num_cards, 'days_until_next_rep' : days_until_next_rep },
+    return render_to_response('review.html', { 'card' : card, 'active_tab' : 'review', 'num_cards_for_today' : num_cards_for_today},
         context_instance=RequestContext(request))
 
 @login_required
