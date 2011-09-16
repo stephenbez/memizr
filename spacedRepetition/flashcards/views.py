@@ -156,7 +156,7 @@ def export(request):
     result = json.dumps(dict_card_list, sort_keys=True, indent=4)
  
     response = HttpResponse(result, mimetype='text/csv')
-    response['Content-Disposition'] = 'attachment; filename=cards.csv'
+    response['Content-Disposition'] = 'attachment; filename=cards.json'
     return response
 
 @login_required
