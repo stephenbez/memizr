@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import Context, loader, RequestContext
 from spacedRepetition.flashcards.models import Card, get_days_so_far
@@ -150,10 +150,10 @@ def export(request):
 
     dict_card_list = []
     for card in cards:
-        d = {"question" : card.question, "answer" : card.answer}
+        d = {"1_question" : card.question, "2_answer" : card.answer}
         dict_card_list.append(d)
 
-    result = json.dumps(dict_card_list)
+    result = json.dumps(dict_card_list, sort_keys=True, indent=4)
  
     response = HttpResponse(result, mimetype='text/csv')
     response['Content-Disposition'] = 'attachment; filename=cards.csv'
@@ -181,8 +181,8 @@ def handle_uploaded_file(f, username):
         return 0    
 
     for c in cards:
-        q = c["question"]
-        a = c["answer"]
+        q = c["1_question"]
+        a = c["2_answer"]
 
         c = Card(question=q, answer=a, username = username) 
         c.save()
