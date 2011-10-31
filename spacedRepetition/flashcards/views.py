@@ -3,13 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import Context, loader, RequestContext
 from spacedRepetition.flashcards.models import Card, get_days_so_far
 from spacedRepetition.flashcards.models import get_days_so_far
 from spacedRepetition.flashcards.forms import UserCreationFormWithEmail
 
+import json
 import random
 import logging
 
@@ -21,13 +22,17 @@ def home(request):
 def gradeDescriptions(request):
     return render_to_response('gradeDescriptions.html', context_instance=RequestContext(request))
 
+def getTodaysCards(username):
+    current_day = get_days_so_far() 
+    return Card.objects.filter(next_rep_day__lte = current_day, username = username)
+
 @login_required
 def review(request):
-    current_day = get_days_so_far() 
-    results = Card.objects.filter(next_rep_day__lte = current_day, username = request.user.username)
+    results = getTodaysCards(request.user.username)
     num_cards_for_today = len(results)
     if num_cards_for_today == 0:
         all_cards = Card.objects.filter(username = request.user.username).order_by('next_rep_day')
+
 
         if len(all_cards) == 0:
             return render_to_response('review.html', { 'active_tab' : 'review', 'user_has_no_cards' : True }, context_instance=RequestContext(request))
@@ -43,6 +48,11 @@ def review(request):
     
     return render_to_response('review.html', { 'card' : card, 'active_tab' : 'review', 'num_cards_for_today' : num_cards_for_today},
         context_instance=RequestContext(request))
+
+def apiGet(request, username):
+    cards = getTodaysCards(username)
+    json_cards = json.dumps(map(lambda c: c.as_dict(), cards))
+    return HttpResponse(json_cards) 
 
 @login_required
 def edit(request):

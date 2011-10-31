@@ -19,6 +19,11 @@ class Card(models.Model):
         return "Id: %i, Username: %s, Q: %s, A: %s, Grade %s, current_interval %i, easiness %f, next_rep_day %i" % \
             (self.id, self.username, self.question, self.answer, self.grade, self.current_interval, self.easiness, self.next_rep_day)
 
+    def as_dict(self):
+        d = self.__dict__.copy()
+        del d['_state']
+        return d
+
     def process_answer(self, new_grade):
         if self.grade == None:
             interval = self.__calculate_initial_interval(new_grade)
