@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import Context, loader, RequestContext
 from spacedRepetition.flashcards.models import Card, get_days_so_far
@@ -13,6 +13,7 @@ from spacedRepetition.flashcards.forms import UserCreationFormWithEmail
 import json
 import random
 import logging
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +56,7 @@ def apiGet(request, username):
     return HttpResponse(json_cards) 
 
 @login_required
-def edit(request):
+def edit(request, num_cards_imported=0):
     cards = Card.objects.filter(username = request.user.username).order_by('id')
     
     edited = False
@@ -72,7 +73,7 @@ def edit(request):
         pass
 
     return render_to_response('edit.html', { 'cards' : cards, 
-        'active_tab' : 'edit', 'edited' : edited, 'deleted' : deleted }, context_instance=RequestContext(request))
+        'active_tab' : 'edit', 'edited' : edited, 'deleted' : deleted, 'num_cards_imported' : num_cards_imported }, context_instance=RequestContext(request))
 
 @login_required
 def editCard(request, card_id):
@@ -152,6 +153,51 @@ def delete(request):
         return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.review'))
     else:
         return HttpResponseRedirect(reverse('spacedRepetition.flashcards.views.edit') + "?deleted=true")
+
+@login_required
+def export(request):
+    cards = Card.objects.filter(username = request.user.username).order_by('id')
+
+    dict_card_list = []
+    for card in cards:
+        d = {"1_question" : card.question, "2_answer" : card.answer}
+        dict_card_list.append(d)
+
+    result = json.dumps(dict_card_list, sort_keys=True, indent=4)
+ 
+    response = HttpResponse(result, mimetype='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=cards.json'
+    return response
+
+@login_required
+def import_cards(request):
+    return render_to_response('import.html', { 'active_tab' : 'import' }, context_instance=RequestContext(request))
+
+@login_required
+def upload(request):
+    if request.method == 'POST':
+        file = request.FILES['file']
+        num_cards_imported = handle_uploaded_file(file, request.user.username)
+        return edit(request, num_cards_imported)
+    else:
+        return import_cards(request)
+
+def handle_uploaded_file(f, username):
+    j =  f.read()
+    
+    try:
+        cards = json.loads(j)
+    except ValueError:
+        return 0    
+
+    for c in cards:
+        q = c["1_question"]
+        a = c["2_answer"]
+
+        c = Card(question=q, answer=a, username = username) 
+        c.save()
+
+    return len(cards)
 
 def register(request):
     if request.method == 'POST':

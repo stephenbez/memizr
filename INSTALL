@@ -1,4 +1,4 @@
-These installation instructions have only been tested on Ubuntu 10.04.
+Note: Memizr requires Django version >= 1.2.  If you install via apt, make sure you have a recent enough version.
 
 sudo apt-get update
 sudo apt-get install libapache2-mod-wsgi mysql-client mysql-server php5 phpmyadmin python-django python-mysqldb

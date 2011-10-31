@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="inner">
+<h2>Import cards</h2>
+<p>
+You can upload a file containing cards previously exported from Memizr.
+</p>
+<p>
+Coming soon: importing cards in other formats.
+<p/>
+<form action="/upload/" method="post" enctype="multipart/form-data">
+<input type="file" name="file" id="file" size="40"/><br/>
+<input type="submit" value="Upload"/>
+{% endblock %}

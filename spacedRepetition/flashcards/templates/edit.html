@@ -26,6 +26,11 @@
 <div class="flash"><div class="message notice"><p>Card deleted</p></div></div>
 {% endif %}
 
+{% if num_cards_imported > 0 %}
+<br/>
+<div class="flash"><div class="message notice"><p>{{ num_cards_imported }} card{{ num_cards_imported|pluralize }} imported</p></div></div>
+{% endif %}
+
 <table class="table">
 <tbody>
 <h2>{{ cards|length }} Total Cards</h2>
