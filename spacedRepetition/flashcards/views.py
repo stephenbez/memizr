@@ -40,7 +40,7 @@ def review(request):
 
         next_rep_day = Card.objects.filter(username = request.user.username). \
                             order_by('next_rep_day')[0].next_rep_day
-        days_until_next_rep = next_rep_day - current_day
+        days_until_next_rep = next_rep_day - get_days_so_far()
         return render_to_response('review.html', { 'active_tab' : 'review', 'days_until_next_rep' : days_until_next_rep }, context_instance=RequestContext(request))
     else:
         result_list = list(results)
